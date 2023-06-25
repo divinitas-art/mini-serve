@@ -1,9 +1,13 @@
 <div></div>
 
-# Serve 🍛
+# flickserve 🍛
 
 Ultralight http server with live reload.  
 <sub><code>CLI + API</code></sub>
+
+<br>
+
+This is fork of [nativew/serve](https://github.com/nativew/serve). I missed fallback option usefull for apps with react router
 
 <br>
 
@@ -20,7 +24,7 @@ Ultralight http server with live reload.
 ### One command
 
 ```zsh
-npm init serve
+npm init flickserve
 ```
 
 <br>
@@ -28,9 +32,9 @@ npm init serve
 ### Or one function
 
 ```js
-import serve from 'create-serve';
+import flickserve from 'flickserve';
 
-serve.start();
+flickserve.start();
 ```
 
 <br>
@@ -45,7 +49,7 @@ By default, it serves `public` if the folder exists, otherwise root `/`.
 Or you can specify a different folder.
 
 ```zsh
-npm init serve [folder]
+npm init flickserve [folder]
 ```
 
 <br>
@@ -53,11 +57,12 @@ npm init serve [folder]
 ### API
 
 ```js
-import serve from 'create-serve';
+import flickserve from 'flickserve';
 
-serve.start({
+flickserve.start({
     port: 7000,
     root: '.',
+    fallback: undefined, // set to "index.html", great for react router etc.
     live: true
 });
 ```
@@ -79,13 +84,13 @@ serve.update();
 [Chokidar](https://github.com/paulmillr/chokidar)
 
 ```js
-import serve from 'create-serve';
+import flickserve from 'flickserve';
 import chokidar from 'chokidar';
 
-serve.start();
+flickserve.start();
 
 chokidar.watch('.').on('change', () => {
-    serve.update();
+    flickserve.update();
 });
 ```
 
@@ -93,7 +98,7 @@ chokidar.watch('.').on('change', () => {
 
 [esbuild](https://esbuild.github.io/api/#watch)
 
-Use the official wrapper for esbuild's watch &nbsp; → &nbsp; [esbuild-serve](https://github.com/nativew/esbuild-serve)
+Use the official wrapper for esbuild's watch &nbsp; → &nbsp; [esbuild-serve](https://github.com/divinitas-art/esbuild-serve)
 
 <br>
 
@@ -102,9 +107,9 @@ Use the official wrapper for esbuild's watch &nbsp; → &nbsp; [esbuild-serve](h
 Import the util functions to log updates with colours.
 
 ```js
-import serve, { error, log } from 'create-serve';
+import flickserve, { error, log } from 'flickserve';
 
-serve.update();
+flickserve.update();
 
 hasError
     ? error('× Failed') // Red
@@ -112,11 +117,5 @@ hasError
 ```
 
 <br><br>
-
-<p>
-    <a href="https://github.com/nativew/nativeweb">
-        <img src="https://raw.githubusercontent.com/nativew/nativeweb/1e9405c629e3a6491bb59df726044eb3823967bb/logo-square_nativeweb.svg" alt="Native Web" width="80px">
-    </a>
-</p>
 
 <div></div>

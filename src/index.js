@@ -18,12 +18,13 @@ import {
 export let options = {
 	port: 7000,
 	root: '.',
+	fallback: undefined,
 	live: true
 };
 
 export const defaultRoot = './public';
 export const encoding = 'utf-8';
-export const eventSource = '/create-serve';
+export const eventSource = '/flickserve';
 export const clients = [];
 
 export const start = (startOptions = {}) => {
@@ -47,6 +48,16 @@ export const start = (startOptions = {}) => {
 		fs.readFile(filePath, encode, (error, content) => {
 			if (error) {
 				if (error.code == 'ENOENT') {
+					if (options.fallback) {
+						const fallbackPath = path.join(options.root, options.fallback);
+
+						return fs.readFile(fallbackPath, encode, (error, content) => {
+							if (error) return showError(response, error);
+
+							return showFile(response, content, contentType);
+						});
+					}
+
 					return show404(response);
 				}
 
